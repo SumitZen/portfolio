@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-jp: 'Noto Serif JP', serif;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-color: #0c0b09;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(192,57,43,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,90,60,0.05) 0%, transparent 60%);
+  background-attachment: fixed;
+  color: #e8e0d4;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#about,
+#experience,
+#youtube {
+  background: #0e0d0b;
+}
+
+#skills,
+#work,
+#contact {
+  background: #0c0b09;
+}
+
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='300' height='300' filter='url(%23noise)' opacity='1'/></svg>");
+}
+
+@property --cx {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --cy {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+.ink-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255,255,255,0.08) 20%,
+    rgba(255,255,255,0.12) 50%,
+    rgba(255,255,255,0.08) 80%,
+    transparent 100%
+  );
+  margin: 0;
+}
+
+@keyframes drawCircle {
+  from { stroke-dashoffset: 380; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes expandCircle {
+  from { 
+    transform: scale(1); 
+    opacity: 1;
+    stroke-width: 1.5px;
+  }
+  to { 
+    transform: scale(20); 
+    opacity: 0;
+    stroke-width: 0.1px;
+  }
+}
+
+@keyframes ambientPulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.animate-ambientPulse {
+  animation: ambientPulse 8s ease-in-out infinite;
+}
+
+.enso-draw {
+  animation: drawCircle 900ms cubic-bezier(0.4, 0, 0.2, 1) 200ms forwards;
+}
+.enso-exit {
+  animation: expandCircle 600ms ease-in forwards;
+}
+
+.marquee-row {
+  animation: marquee 35s linear infinite;
+}
+
+.marquee-row-reverse {
+  animation: marquee-reverse 45s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
