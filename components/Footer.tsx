@@ -5,96 +5,82 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="border-t border-b border-[rgba(255,255,255,0.06)] h-[44px] overflow-hidden bg-[#080806]" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)', maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)' }}>
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="marquee-row h-full flex items-center whitespace-nowrap text-[0.72rem] font-mono font-medium tracking-[0.18em]">
-            <span className="text-[#8a8078]">AVAILABLE FOR FREELANCE</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">WEB DEVELOPMENT</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">ANDROID APPS</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">スミット</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">CONTENT CREATION</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">LUCKNOW · INDIA</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">日本語学習中</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">OPEN TO REMOTE</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-          </div>
-          <div className="marquee-row-reverse h-full flex items-center whitespace-nowrap text-[0.72rem] font-mono font-medium tracking-[0.18em] opacity-40">
-            <span className="text-[#8a8078]">AVAILABLE FOR FREELANCE</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">WEB DEVELOPMENT</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">ANDROID APPS</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">スミット</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">CONTENT CREATION</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">LUCKNOW · INDIA</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">日本語学習中</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-            <span className="text-[#3a3530]">OPEN TO REMOTE</span>
-            <span className="mx-3 text-[#c0392b]">〇</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-[#080806] border-t border-[rgba(255,255,255,0.06)] py-10 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <Link href="/" className="text-xl font-bold font-display mb-2 block">
-              S<span className="text-[#c0392b]">.</span>
+    <footer className="relative bg-[var(--bg)] border-t border-[rgba(255,255,255,0.05)] pt-20 pb-10 overflow-hidden">
+      {/* Marquee Section */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent" />
+      
+      <div className="max-w-6xl mx-auto px-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
+          <div className="md:col-span-5">
+            <Link href="/" className="flex flex-col mb-8">
+              <span className="text-[var(--text-primary)] font-display font-bold text-2xl leading-none tracking-tight uppercase">
+                SUMIT<span className="text-[var(--accent)]">.</span>
+              </span>
+              <span className="font-jp text-[var(--text-secondary)] text-[10px] tracking-[0.2em] mt-2 uppercase">
+                スミット / CREATIVE
+              </span>
             </Link>
-            <p className="text-[#8a8078] font-body text-0.9rem">
-              Building things that matter — one commit at a time.
+            <p className="text-[var(--text-secondary)] font-body text-[15px] leading-relaxed max-w-xs mb-8">
+              A digital craftsman focused on building high-performance, aesthetically pleasing experiences for the modern web.
             </p>
-          </div>
-          <div>
-            <h4 className="text-[#e8e0d4] font-body font-500 mb-4">Quick Links</h4>
-            <div className="space-y-2">
-              <Link href="#about" className="block text-[#8a8078] hover:text-[#e8e0d4] font-body text-0.9rem transition-colors">
-                About
-              </Link>
-              <Link href="#work" className="block text-[#8a8078] hover:text-[#e8e0d4] font-body text-0.9rem transition-colors">
-                Work
-              </Link>
-              <Link href="#contact" className="block text-[#8a8078] hover:text-[#e8e0d4] font-body text-0.9rem transition-colors">
-                Contact
-              </Link>
+            <div className="flex items-center gap-6">
+              <span className="font-mono text-[10px] tracking-[0.2em] text-[var(--text-primary)] uppercase">Location</span>
+              <span className="text-[var(--text-secondary)] font-body text-sm">Bhopal, India (UTC+5:30)</span>
             </div>
           </div>
-          <div>
-            <h4 className="text-[#e8e0d4] font-body font-500 mb-4">Connect</h4>
-            <p className="text-[#8a8078] font-body text-0.9rem mb-2">
-              hello@sumit.dev
-            </p>
-            <p className="text-[#8a8078] font-mono text-0.8rem">
-              © 2026 Sumit
-            </p>
-            <p className="text-[#8a8078] font-mono text-0.8rem">
-              Built with Next.js
-            </p>
+
+          <div className="md:col-span-2">
+            <h4 className="font-mono text-[10px] tracking-[0.3em] text-[var(--text-primary)] uppercase mb-8">Navigate</h4>
+            <ul className="space-y-4">
+              {['About', 'Work', 'Experience', 'Contact'].map((item) => (
+                <li key={item}>
+                  <Link href={`#${item.toLowerCase()}`} className="text-[var(--text-secondary)] hover:text-[var(--accent)] font-body text-[14px] transition-colors duration-300">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <div className="md:col-span-2">
+            <h4 className="font-mono text-[10px] tracking-[0.3em] text-[var(--text-primary)] uppercase mb-8">Connect</h4>
+            <ul className="space-y-4">
+              {['GitHub', 'LinkedIn', 'Instagram', 'YouTube'].map((item) => (
+                <li key={item}>
+                  <Link href="#" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-body text-[14px] transition-colors duration-300">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="md:col-span-3">
+            <h4 className="font-mono text-[10px] tracking-[0.3em] text-[var(--text-primary)] uppercase mb-8">Current Status</h4>
+            <div className="bg-[var(--surface)] border border-[rgba(255,255,255,0.03)] rounded-[12px] p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-1.5 h-1.5 bg-[var(--accent)] rounded-full animate-pulse" />
+                <span className="font-mono text-[9px] tracking-[0.1em] text-[var(--text-primary)] uppercase">Available for Hire</span>
+              </div>
+              <p className="text-[var(--text-secondary)] text-[12px] leading-relaxed">
+                Open for interesting projects and partnerships starting April 2026.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-[rgba(255,255,255,0.05)] gap-6">
+          <p className="font-mono text-[10px] tracking-[0.2em] text-[var(--text-secondary)] uppercase">
+            © 2026 SUMIT ZEN / ALL RIGHTS RESERVED
+          </p>
+          <p className="font-mono text-[10px] tracking-[0.2em] text-[var(--text-secondary)] uppercase">
+            DESIGNED WITH <span className="text-[var(--accent)]">INTENTION</span>.
+          </p>
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-      `}</style>
+      {/* Background Decorative Element */}
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[var(--accent)] opacity-[0.03] blur-[120px] rounded-full pointer-events-none" />
     </footer>
   )
 }

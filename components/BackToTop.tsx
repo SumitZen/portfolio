@@ -32,14 +32,16 @@ export default function BackToTop() {
       {isVisible && (
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 w-9 h-9 bg-[rgba(12,11,9,0.8)] backdrop-blur-4 border border-[rgba(255,255,255,0.1)] rounded-full flex items-center justify-center text-[#8a8078] hover:border-[rgba(192,57,43,0.4)] hover:text-[#c0392b] transition-all duration-200 z-40"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          className="fixed bottom-12 right-12 flex flex-col items-center gap-4 group z-40 h-[100px]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <ArrowUp className="w-4 h-4" />
+          <span className="font-jp text-[var(--text-secondary)] text-[9px] tracking-[0.4em] uppercase vertical-rl group-hover:text-[var(--accent)] transition-colors duration-300">
+            トップへ / BACK TO TOP
+          </span>
+          <div className="w-[1px] h-full bg-gradient-to-b from-[var(--accent)] to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-300" />
         </motion.button>
       )}
     </AnimatePresence>

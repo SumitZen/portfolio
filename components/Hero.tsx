@@ -19,64 +19,45 @@ function fadeUp(delay: number) {
 
 export default function Hero({ visible }: HeroProps) {
   return (
-    <section className="relative h-dvh overflow-hidden">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-[#0c0b09]" />
+    <section className="relative h-dvh overflow-hidden flex items-center justify-center">
+      {/* Background layer */}
+      <div className="absolute inset-0 bg-[var(--bg)]" />
 
-      {/* Hero top gradient for nav readability */}
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[rgba(0,0,0,0.4)] to-transparent pointer-events-none" />
-
-      {/* Ink wash */}
-      <div className="absolute inset-0 opacity-40">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-transparent via-[rgba(0,0,0,0.3)] to-[rgba(0,0,0,0.5)] rounded-full blur-3xl" />
-      </div>
+      {/* Subtle Grain Overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22/></svg>')] shadow-inner" />
 
       {/* Ambient warm glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="absolute w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,rgba(192,57,43,0.05)_0%,transparent_70%)] blur-[80px] animate-ambientPulse" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] rounded-full bg-[radial-gradient(circle,rgba(232,93,63,0.03)_0%,transparent_70%)] blur-[100px]" />
+        <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-[radial-gradient(circle,rgba(139,90,60,0.02)_0%,transparent_70%)] blur-[80px]" />
       </div>
 
-      {/* Spotlight */}
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          background:
-            'radial-gradient(500px circle at var(--cx, 50%) var(--cy, 50%), rgba(192,57,43,0.06) 0%, transparent 70%)',
-          transition: '--cx 0.3s ease, --cy 0.3s ease',
-        }}
-      />
-
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
-
+      <div className="relative z-10 flex flex-col items-center text-center px-6">
         {/* Japanese subtitle — top */}
         <motion.div
-          className="text-[#4a4540] font-jp mb-8 block"
-          style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.1 }}
+          className="text-[var(--text-secondary)] font-jp mb-6 block uppercase"
+          style={{ fontSize: '10px', letterSpacing: '0.3em' }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 0.2 }}
         >
-          自己紹介
+          自己紹介 / PROFILE
         </motion.div>
 
-        {/* Main name — letter reveal */}
+        {/* Main name */}
         <div className="mb-4">
-          <h1 className="text-[#e8e0d4] font-display font-bold text-[clamp(7rem,16vw,14rem)] whitespace-nowrap -tracking-[0.02em] leading-[0.9]">
+          <h1
+            className="text-[var(--text-primary)] font-display font-bold whitespace-nowrap tracking-[-0.03em] leading-[0.85]"
+            style={{ fontSize: 'clamp(8rem,20vw,17rem)' }}
+          >
             {['S', 'U', 'M', 'I', 'T'].map((letter, index) => (
-              <span
-                key={index}
-                className="inline-block overflow-hidden align-bottom"
-              >
+              <span key={index} className="inline-block overflow-hidden align-bottom">
                 <motion.span
                   className="inline-block"
-                  initial={{ y: '110%' }}
-                  animate={visible ? { y: '0%' } : { y: '110%' }}
-                  transition={{
-                    duration: 0.9,
-                    ease: EASE_OUT,
-                    delay: 0.05 + index * 0.07,
-                  }}
+                  initial={{ y: '100%' }}
+                  animate={visible ? { y: '0%' } : { y: '100%' }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 + index * 0.08 }}
                 >
                   {letter}
                 </motion.span>
@@ -87,65 +68,92 @@ export default function Hero({ visible }: HeroProps) {
 
         {/* Japanese name — bottom */}
         <motion.div
-          className="text-[#4a4540] font-mono mb-8"
-          style={{ fontSize: '1.1rem', letterSpacing: '0.25em' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.5 }}
+          className="text-[var(--text-secondary)] font-mono mb-10"
+          style={{ fontSize: '12px', letterSpacing: '0.4em' }}
+          initial={{ opacity: 0 }}
+          animate={visible ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 1, ease: EASE_OUT, delay: 1 }}
         >
           スミット
         </motion.div>
 
+        {/* Identity Pills */}
+        <motion.div
+          className="flex items-center gap-3 mb-8"
+          initial={{ opacity: 0, y: 15 }}
+          animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.1 }}
+        >
+          <div className="flex items-center gap-2 px-3.5 py-1.5 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-full font-mono text-[0.68rem] text-[#6a6058] tracking-wider uppercase">
+            <span className="text-[10px]">{'</>'}</span> Developer
+          </div>
+          <div className="flex items-center gap-2 px-3.5 py-1.5 bg-[rgba(255,255,255,0.03)] border border-[rgba(192,57,43,0.25)] rounded-full font-mono text-[0.68rem] text-[#c0392b] tracking-wider uppercase">
+            <span className="text-[10px]">✦</span> AI Artist
+          </div>
+        </motion.div>
+
         {/* Tagline */}
-        <motion.p
-          className="text-[#8a8078] font-body mb-12"
-          style={{ fontSize: '0.9rem', letterSpacing: '0.06em' }}
+        <motion.div
+          className="max-w-xl font-body mb-12 tracking-[0.04em] font-normal"
           initial={{ opacity: 0, y: 20 }}
           animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.65 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.2 }}
         >
-          CS Student · Web Developer · Android Dev · Content Creator
-        </motion.p>
+          <p className="text-[var(--text-secondary)] text-[clamp(0.9rem,2vw,0.95rem)] leading-relaxed mb-1">
+            Web Dev · Android Dev · Content Creator
+          </p>
+          <p className="text-[#c0392b] text-[clamp(0.85rem,1.8vw,0.9rem)] font-medium">
+            AI Artist · Image & Video Generation
+          </p>
+        </motion.div>
 
         {/* CTAs */}
         <motion.div
-          className="flex space-x-4 mb-16"
+          className="flex flex-col sm:flex-row gap-4 mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.8 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.4 }}
         >
           <Link
             href="#work"
-            className="bg-[#c0392b] text-[#e8e0d4] px-7 py-3 border-none font-medium tracking-[0.08em] hover:bg-[#a93226] transition-all duration-200 hover:-translate-y-0.5"
-            style={{ fontSize: '0.85rem', borderRadius: '0.5rem' }}
+            className="group relative bg-[var(--accent)] text-[#000] px-8 py-4 font-bold tracking-wider hover:brightness-110 transition-all duration-300 overflow-hidden"
+            style={{ fontSize: '12px', borderRadius: '8px' }}
           >
-            View Work →
+            <span className="relative z-10">VIEW SELECTED WORKS →</span>
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
           </Link>
           <Link
             href="#contact"
-            className="bg-transparent border border-[rgba(232,224,212,0.2)] text-[#8a8078] px-7 py-3 font-medium tracking-[0.08em] hover:border-[rgba(232,224,212,0.5)] hover:text-[#e8e0d4] transition-all duration-200"
-            style={{ fontSize: '0.85rem', borderRadius: '0.5rem' }}
+            className="group border border-[rgba(255,255,255,0.1)] text-[var(--text-primary)] px-8 py-4 font-medium tracking-wider hover:border-[rgba(255,255,255,0.3)] transition-all duration-300"
+            style={{ fontSize: '12px', borderRadius: '8px' }}
           >
-            Get in Touch
+            GET IN TOUCH
           </Link>
         </motion.div>
 
         {/* Scroll hint */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-4"
           initial={{ opacity: 0 }}
           animate={visible ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
+          transition={{ duration: 1, delay: 1.8 }}
         >
-          <p
-            className="text-[#4a4540] font-mono uppercase mb-2"
-            style={{ fontSize: '0.65rem', letterSpacing: '0.15em' }}
-          >
-            Scroll to explore
-          </p>
-          <div className="w-pxh-4 bg-[#4a4540] mx-auto animate-bounce" />
+          <div className="w-[1px] h-12 bg-[var(--accent)] relative overflow-hidden">
+            <motion.div 
+              className="absolute top-0 left-0 w-full h-full bg-white"
+              animate={{
+                y: ['-100%', '100%']
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </div>
         </motion.div>
       </div>
     </section>
+
   )
 }

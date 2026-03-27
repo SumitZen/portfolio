@@ -19,10 +19,11 @@ export default function ScrollProgress() {
         left: 0,
         right: 0,
         height: '2px',
-        background: '#c0392b',
+        background: 'var(--accent)',
         transformOrigin: '0%',
-        zIndex: 99999,
+        zIndex: 100000,
         pointerEvents: 'none',
+        boxShadow: '0 0 10px rgba(232, 93, 63, 0.4)',
       }}
     />
   )

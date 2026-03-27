@@ -1,175 +1,163 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 
 const projects = [
   {
     id: 'linkzy',
     tag: '案件 01',
     title: 'Linkzy',
-    description: 'A link-in-bio SaaS platform. One link, everything you are.',
+    description: 'A sophisticated, typography-first link-in-bio platform for creators who demand elegance. One link — your entire identity.',
     stack: ['Next.js', 'TypeScript', 'CSS Modules', 'Vercel'],
-    status: '開発中',
-    links: { github: '#', preview: '#' },
+    status: '完成',
+    image: '/projects/linkzy.png',
+    live: 'https://linkzy-app.vercel.app/',
     featured: true,
   },
   {
-    id: 'divcam',
+    id: 'scriptai',
     tag: '案件 02',
-    title: 'Div Cam',
-    description: 'Android camera app with tactile dial UI and cinematic LUT filters.',
-    stack: ['Kotlin', 'CameraX', 'Jetpack Compose'],
-    status: '開発中',
-    links: { github: '#', preview: '#' },
+    title: 'ScriptAI',
+    description: 'AI-powered script generator that engineers retention-first narratives for creators and the viral economy.',
+    stack: ['Next.js', 'OpenAI', 'TypeScript', 'Vercel'],
+    status: '完成',
+    image: '/projects/scriptai.png',
+    live: 'https://scriptai-viral-script-generator.vercel.app/',
     featured: false,
   },
   {
-    id: 'neo-tactile',
+    id: 'portfolio',
     tag: '案件 03',
-    title: 'Neo-Tactile UI',
-    description: 'Pixel-accurate HTML/CSS recreation of a glassmorphism UI kit.',
-    stack: ['HTML', 'CSS'],
-    status: '完成',
-    links: { github: '#', preview: '#' },
+    title: 'Portfolio',
+    description: 'This very site — a Japanese-editorial, dark-mode portfolio showcasing both my Developer and AI Artist identities.',
+    stack: ['Next.js', 'Framer Motion', 'TypeScript', 'Vercel'],
+    status: '開発中',
+    image: '/projects/portfolio.png',
+    live: 'https://sumit-nyx.vercel.app/',
     featured: false,
   },
 ]
 
 export default function Projects() {
+  const featured = projects[0]
+  const rest = projects.slice(1)
+
   return (
-    <section id="work" className="py-24 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="work" className="relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-12">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 24 }}
+          className="mb-20"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="text-[#4a4540] font-jp text-0.65rem letter-spacing-0.2em mb-4 block">
-            作品
-          </div>
-          <h2 className="text-[#e8e0d4] font-display font-semibold italic text-[clamp(2.8rem,5vw,4.5rem)] -tracking-[0.01em]">
-            Selected Works
+          <span className="font-jp text-[var(--text-secondary)] text-[10px] tracking-[0.3em] uppercase mb-4 block">
+            作品 / SELECTED WORKS
+          </span>
+          <h2 className="text-[var(--text-primary)] font-display font-bold text-[clamp(2.5rem,5vw,4rem)] tracking-tight leading-none">
+            Digital <span className="text-[var(--accent)]">Craftsmanship</span>.
           </h2>
         </motion.div>
 
         {/* Featured Project */}
-        <motion.div
+        <motion.a
+          href={featured.live}
+          target="_blank"
+          rel="noopener noreferrer"
           data-cursor="project"
-          className="mb-12 h-125 border border-[rgba(255,255,255,0.06)] rounded-lg overflow-hidden"
-          initial={{ opacity: 0, y: 24 }}
+          className="group relative mb-12 bg-[var(--surface)] border border-[rgba(255,255,255,0.04)] rounded-[24px] overflow-hidden hover:border-[rgba(255,255,255,0.08)] transition-all duration-700 block"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
-            <div className="lg:col-span-3 bg-gradient-to-br from-[#0f0e1a] via-[#1a1535] to-[#0c0b14] relative overflow-hidden">
-              <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-1/4 left-1/4 w-32 h-20 bg-white rounded-lg transform rotate-12" />
-                <div className="absolute top-1/2 right-1/4 w-24 h-16 bg-white rounded-lg transform -rotate-6" />
-                <div className="absolute bottom-1/4 left-1/2 w-28 h-18 bg-white rounded-lg transform rotate-3" />
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Screenshot */}
+            <div className="relative h-[400px] lg:h-auto overflow-hidden bg-[#0a0a0a]">
+              <img
+                src={featured.image}
+                alt={`${featured.title} screenshot`}
+                className="absolute inset-0 w-full h-full object-cover object-top transform group-hover:scale-[1.03] transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[var(--surface)] opacity-60 pointer-events-none" />
             </div>
-            <div className="lg:col-span-2 p-12 bg-[#0c0b09] border-l border-[rgba(255,255,255,0.06)]">
-              <div className="text-[#c0392b] font-mono text-0.6rem mb-4">
-                {projects[0].tag}
-              </div>
-              <h3 className="text-[#e8e0d4] font-display font-bold text-2.8rem mb-4">
-                {projects[0].title}
+            {/* Info */}
+            <div className="p-12 lg:p-16 flex flex-col justify-center">
+              <span className="font-mono text-[10px] tracking-[0.3em] text-[var(--accent)] uppercase mb-6 block">
+                {featured.tag} — FEATURED
+              </span>
+              <h3 className="text-[var(--text-primary)] font-display font-bold text-4xl mb-6 tracking-tight">
+                {featured.title}
               </h3>
-              <p className="text-[#8a8078] font-body line-height-1.7 mb-6">
-                {projects[0].description}
+              <p className="text-[var(--text-secondary)] font-body text-lg leading-relaxed mb-8 max-w-md">
+                {featured.description}
               </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {projects[0].stack.map((tech) => (
-                  <span key={tech} className="text-[#8a8078] font-mono text-0.72rem px-3 py-1 border border-[rgba(255,255,255,0.08)] rounded-0.5">
+              <div className="flex flex-wrap gap-2 mb-10">
+                {featured.stack.map((tech) => (
+                  <span key={tech} className="font-mono text-[9px] tracking-[0.1em] text-[var(--text-secondary)] px-3 py-1.5 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] rounded-md uppercase">
                     {tech}
                   </span>
                 ))}
               </div>
-              <div className="flex items-center mb-6">
-                <div className="w-2 h-2 bg-[#c0392b] rounded-full mr-2 animate-pulse" />
-                <span className="text-[#8a8078] font-mono text-0.6rem">
-                  {projects[0].status}
-                </span>
-              </div>
-              <div className="flex space-x-4">
-                <Link href={projects[0].links.github} className="text-[#8a8078] hover:text-[#e8e0d4] font-mono text-0.7rem">
-                  GitHub ↗
-                </Link>
-                <Link href={projects[0].links.preview} className="text-[#8a8078] hover:text-[#e8e0d4] font-mono text-0.7rem">
-                  Preview ↗
-                </Link>
+              <div className="flex items-center gap-2 text-[var(--text-primary)] font-mono text-[11px] tracking-widest uppercase group-hover:translate-x-1 transition-transform duration-300 w-fit">
+                <span>LIVE SITE</span>
+                <span>↗</span>
               </div>
             </div>
           </div>
-        </motion.div>
+        </motion.a>
 
-        {/* Other Projects */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.slice(1).map((project, index) => (
-            <motion.div
+        {/* Grid Projects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {rest.map((project, index) => (
+            <motion.a
               key={project.id}
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
               data-cursor="project"
-              className="h-96 border border-[rgba(255,255,255,0.06)] rounded-lg overflow-hidden hover:border-[rgba(255,255,255,0.08)] transition-all duration-300"
-              initial={{ opacity: 0, y: 24 }}
+              className="group relative bg-[var(--surface)] border border-[rgba(255,255,255,0.04)] rounded-[24px] overflow-hidden hover:border-[rgba(255,255,255,0.08)] transition-all duration-700 block"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.2 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.2 }}
             >
-              <div className={`h-full ${project.id === 'divcam' ? 'bg-gradient-to-br from-[#0a1628] to-[#0d2040]' : 'bg-gradient-to-br from-[#1a0a2e] to-[#250d40]'} relative overflow-hidden`}>
-                <div className="absolute inset-0 opacity-20">
-                  {project.id === 'divcam' ? (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 flex items-center justify-center">
-                      <div className="absolute inset-0 rounded-full border border-[rgba(255,255,255,0.1)]" />
-                      <div className="absolute inset-[12px] rounded-full border border-[rgba(255,255,255,0.1)]" />
-                    </div>
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="grid grid-cols-3 gap-2">
-                        {Array.from({ length: 9 }).map((_, i) => (
-                          <div key={i} className="w-[40px] h-[40px] bg-[rgba(255,255,255,0.08)] rounded-lg" />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="text-[#c0392b] font-mono text-0.6rem mb-2">
-                    {project.tag}
-                  </div>
-                  <h4 className="text-[#e8e0d4] font-display font-bold text-1.8rem mb-2">
-                    {project.title}
-                  </h4>
-                  <p className="text-[#8a8078] font-body text-0.9rem line-height-1.6 mb-4">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.stack.map((tech) => (
-                      <span key={tech} className="text-[#8a8078] font-mono text-0.65rem px-2 py-1 border border-[rgba(255,255,255,0.08)] rounded-0.5">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center mb-4">
-                    <div className={`w-2 h-2 rounded-full mr-2 ${project.status === '完成' ? 'bg-green-500' : 'bg-[#c0392b] animate-pulse'}`} />
-                    <span className="text-[#8a8078] font-mono text-0.6rem">
-                      {project.status}
+              {/* Screenshot */}
+              <div className="h-64 relative overflow-hidden bg-[#0a0a0a]">
+                <img
+                  src={project.image}
+                  alt={`${project.title} screenshot`}
+                  className="absolute inset-0 w-full h-full object-cover object-top transform group-hover:scale-[1.04] transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--surface)] opacity-60 pointer-events-none" />
+              </div>
+              {/* Info */}
+              <div className="p-10">
+                <span className="font-mono text-[9px] tracking-[0.3em] text-[var(--text-secondary)] uppercase mb-4 block">
+                  {project.tag}
+                </span>
+                <h4 className="text-[var(--text-primary)] font-display font-bold text-2xl mb-4 tracking-tight">
+                  {project.title}
+                </h4>
+                <p className="text-[var(--text-secondary)] font-body text-[15px] leading-relaxed mb-6">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {project.stack.map((tech) => (
+                    <span key={tech} className="font-mono text-[8px] tracking-[0.1em] text-[var(--text-secondary)] px-2 py-1 bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.04)] rounded-sm uppercase">
+                      {tech}
                     </span>
-                  </div>
-                  <div className="flex space-x-3">
-                    <Link href={project.links.github} className="text-[#8a8078] hover:text-[#e8e0d4] font-mono text-0.7rem">
-                      GitHub ↗
-                    </Link>
-                    <Link href={project.links.preview} className="text-[#8a8078] hover:text-[#e8e0d4] font-mono text-0.7rem">
-                      Preview ↗
-                    </Link>
-                  </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-[rgba(255,255,255,0.03)]">
+                  <span className="text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] font-mono text-[10px] tracking-widest transition-colors">
+                    LIVE SITE ↗
+                  </span>
+                  <div className={`w-1.5 h-1.5 rounded-full ${project.status === '完成' ? 'bg-emerald-500' : 'bg-[var(--accent)] animate-pulse'}`} title={project.status} />
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>

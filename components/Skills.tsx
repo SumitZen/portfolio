@@ -19,78 +19,59 @@ const skillCategories = [
     category: 'Tools',
     skills: ['Figma', 'Git', 'GitHub', 'VS Code', 'Vercel'],
   },
+  {
+    category: 'AI Tools',
+    skills: ['Midjourney', 'Kling AI', 'Veo 3', 'Runway', 'ChatGPT'],
+  },
 ]
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section id="skills" className="relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-12">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 24 }}
+          className="mb-20"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="text-[#4a4540] font-jp text-0.65rem letter-spacing-0.2em mb-4 block">
-            スキル
-          </div>
-          <h2 className="text-[#e8e0d4] font-display font-semibold italic text-[clamp(2.8rem,5vw,4.5rem)] -tracking-[0.01em]">
-            Stack
+          <span className="font-jp text-[var(--text-secondary)] text-[10px] tracking-[0.3em] uppercase mb-4 block">
+            スキル / CAPABILITIES
+          </span>
+          <h2 className="text-[var(--text-primary)] font-display font-bold text-[clamp(2.5rem,5vw,4rem)] tracking-tight leading-none">
+            Technical <span className="text-[var(--accent)]">Stack</span>.
           </h2>
         </motion.div>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillCategories.map((cat, catIndex) => (
             <motion.div
               key={cat.category}
-              className="flex flex-col md:flex-row items-start md:items-center"
-              initial={{ opacity: 0, y: 24 }}
+              className="bg-[var(--surface)] border border-[rgba(255,255,255,0.04)] rounded-[16px] p-8 hover:border-[rgba(255,255,255,0.08)] transition-all duration-500"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: catIndex * 0.1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: catIndex * 0.1 }}
             >
-              <div className="text-[#e8e0d4] font-display font-semibold italic text-1.3rem min-w-36 mb-4 md:mb-0">
+              <h3 className="text-[var(--text-primary)] font-display font-bold text-xl mb-6 flex items-center gap-3">
+                <span className="w-1.5 h-1.5 bg-[var(--accent)] rounded-full" />
                 {cat.category}
-              </div>
-              <div className="w-px h-4 bg-[rgba(255,255,255,0.08)] mx-6 hidden md:block" />
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {cat.skills.map((skill, skillIndex) => (
-                  <motion.span
+                {cat.skills.map((skill) => (
+                  <span
                     key={skill}
-                    className="text-[#8a8078] font-mono text-0.72rem px-3 py-1.5 border border-[rgba(255,255,255,0.08)] rounded-0.5 hover:border-[rgba(192,57,43,0.4)] hover:text-[#e8e0d4] transition-all duration-200"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: catIndex * 0.1 + skillIndex * 0.08 }}
+                    className="font-mono text-[10px] tracking-[0.1em] text-[var(--text-secondary)] px-3 py-1.5 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] rounded-[6px] hover:text-[var(--text-primary)] hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 uppercase"
                   >
                     {skill}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          className="mt-12 bg-[rgba(192,57,43,0.05)] border border-[rgba(192,57,43,0.12)] rounded-lg p-6"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-        >
-          <div className="text-[#4a4540] font-mono text-0.6rem letter-spacing-0.15em uppercase mb-3">
-            現在学習中
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-[#8a8078] font-mono text-0.72rem px-3 py-1.5 border border-[rgba(255,255,255,0.08)] rounded-0.5">
-              Japanese N5 🇯🇵
-            </span>
-            <span className="text-[#8a8078] font-mono text-0.72rem px-3 py-1.5 border border-[rgba(255,255,255,0.08)] rounded-0.5">
-              Razorpay
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

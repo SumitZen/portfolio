@@ -32,49 +32,60 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 px-6">
-      <div className="max-w-2xl mx-auto">
+    <section id="experience" className="relative overflow-hidden">
+      <div className="max-w-4xl mx-auto px-12">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 24 }}
+          className="mb-20"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="text-[#4a4540] font-jp text-0.65rem letter-spacing-0.2em mb-4 block">
-            経歴
-          </div>
-          <h2 className="text-[#e8e0d4] font-display font-semibold italic text-[clamp(2.8rem,5vw,4.5rem)] -tracking-[0.01em]">
-            Journey
+          <span className="font-jp text-[var(--text-secondary)] text-[10px] tracking-[0.3em] uppercase mb-4 block">
+            経歴 / CHRONOLOGY
+          </span>
+          <h2 className="text-[var(--text-primary)] font-display font-bold text-[clamp(2.5rem,5vw,4rem)] tracking-tight leading-none">
+            The <span className="text-[var(--accent)]">Journey</span>.
           </h2>
         </motion.div>
 
-        <div className="relative">
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[rgba(255,255,255,0.1)] to-transparent" />
+        <div className="relative pl-8 sm:pl-0">
+          {/* Vertical Line */}
+          <div className="absolute left-0 sm:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[rgba(255,255,255,0.1)] to-transparent hidden sm:block" />
 
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              className="relative flex items-start mb-12 pl-16 max-w-[700px] mx-auto"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-            >
-              <div className="absolute left-0 w-3 h-3 bg-[#c0392b] rounded-full -translate-x-1.5" />
-              <div className="flex-1">
-                <div className="text-[#c0392b] font-mono text-0.75rem mb-1">
-                  {exp.year}
+          <div className="space-y-16">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                className={`relative flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-0 ${
+                  index % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'
+                }`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+              >
+                {/* Desktop Connection Line/Dot */}
+                <div className="absolute left-1/2 -ml-[4px] w-2 h-2 bg-[var(--accent)] rounded-full hidden sm:block z-10" />
+
+                {/* Mobile Dot */}
+                <div className="absolute left-0 -ml-[4px] w-2 h-2 bg-[var(--accent)] rounded-full sm:hidden z-10" />
+
+                <div className={`sm:w-1/2 ${index % 2 === 0 ? 'sm:pr-16 sm:text-right' : 'sm:pl-16 sm:text-left'}`}>
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-[var(--accent)] uppercase mb-2 block">
+                    {exp.year}
+                  </span>
+                  <h3 className="text-[var(--text-primary)] font-display font-bold text-xl mb-3 tracking-tight">
+                    {exp.title}
+                  </h3>
+                  <p className="text-[var(--text-secondary)] font-body text-[15px] leading-relaxed max-w-md ml-auto mr-0">
+                    {exp.description}
+                  </p>
                 </div>
-                <div className="text-[#e8e0d4] font-body font-500 text-1rem mb-1">
-                  {exp.title}
-                </div>
-                <div className="text-[#8a8078] font-body text-0.9rem">
-                  {exp.description}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                <div className="sm:w-1/2" />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

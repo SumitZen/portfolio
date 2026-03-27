@@ -7,8 +7,8 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import About from '../components/About'
 import Skills from '../components/Skills'
-import Experience from '../components/Experience'
 import Projects from '../components/Projects'
+import AICreations from '../components/AICreations'
 import YouTube from '../components/YouTube'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
@@ -61,9 +61,9 @@ export default function Home() {
         <div className="ink-divider" />
         <Skills />
         <div className="ink-divider" />
-        <Experience />
-        <div className="ink-divider" />
         <Projects />
+        <div className="ink-divider" />
+        <AICreations />
         <div className="ink-divider" />
         <YouTube />
         <div className="ink-divider" />

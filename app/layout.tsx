@@ -5,11 +5,10 @@ import './globals.css'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '600', '700'],
-  style: ['normal', 'italic'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-display',
   display: 'swap',
-  preload: true,
+  style: ['normal', 'italic'],
 })
 
 const inter = Inter({
