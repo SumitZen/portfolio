@@ -1,9 +1,15 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useScroll, motion } from 'framer-motion'
-import { Disc } from 'lucide-react'
+import { useScroll, motion, AnimatePresence } from 'framer-motion'
+import { Disc, ChevronDown, Volume2 } from 'lucide-react'
 import Link from 'next/link'
+
+const PLAYLIST = [
+  { title: 'Golden Brown', artist: 'The Stranglers', src: '/songs/golden_brown.mp3', poster: '/songs/golden_brown.jpeg' },
+  { title: 'I Love You So', artist: 'The Walters', src: '/songs/love_you_so.mp3', poster: '/songs/love_you_so.jpeg' },
+  { title: 'The Night We Met', artist: 'Lord Huron', src: '/songs/the_night_we_met.mp3', poster: '/songs/the_night_we_met.jpg' },
+]
 
 const navItems = [
   { name: 'About', href: '#about' },
@@ -16,9 +22,49 @@ export default function Navbar() {
   const { scrollY } = useScroll()
   const [isScrolled, setIsScrolled] = useState(false)
   const [active, setActive] = useState<string>('#about')
-
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [currentSongIndex, setCurrentSongIndex] = useState(0)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [volume, setVolume] = useState(0.5)
+
+  // Initialize random song on mount
+  useEffect(() => {
+    setCurrentSongIndex(Math.floor(Math.random() * PLAYLIST.length))
+  }, [])
+
+  // Sync volume state to audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume
+    }
+  }, [volume])
+
+  // Browser Autoplay Policy Workaround: Play on first user interaction (scroll, click, keydown)
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play().catch(() => {
+          // Ignore if the browser still strictly denies it
+        })
+      }
+      // Remove listeners after the first successful or attempted interaction
+      window.removeEventListener('click', handleFirstInteraction)
+      window.removeEventListener('scroll', handleFirstInteraction)
+      window.removeEventListener('keydown', handleFirstInteraction)
+    }
+
+    // Bind listeners
+    window.addEventListener('click', handleFirstInteraction)
+    window.addEventListener('scroll', handleFirstInteraction)
+    window.addEventListener('keydown', handleFirstInteraction)
+
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction)
+      window.removeEventListener('scroll', handleFirstInteraction)
+      window.removeEventListener('keydown', handleFirstInteraction)
+    }
+  }, [])
 
   const toggleMusic = () => {
     if (!audioRef.current) return
@@ -28,6 +74,15 @@ export default function Navbar() {
       audioRef.current.play()
     }
     setIsPlaying(!isPlaying)
+  }
+
+  const selectSong = (index: number) => {
+    setCurrentSongIndex(index)
+    setIsDrawerOpen(false)
+    setIsPlaying(true)
+    setTimeout(() => {
+      audioRef.current?.play()
+    }, 50)
   }
 
   useEffect(() => {
@@ -101,24 +156,24 @@ export default function Navbar() {
           </a>
 
           {/* ── Music Player ── */}
-          <div className="flex items-center border-l border-[rgba(255,255,255,0.08)] pl-6 ml-2">
-            <button 
-              onClick={toggleMusic}
-              className="flex items-center gap-3 group outline-none"
-            >
-              {/* Spinning Record */}
-              <div className="relative w-7 h-7 flex items-center justify-center rounded-full bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] group-hover:border-[rgba(192,57,43,0.4)] transition-colors shadow-inner overflow-hidden">
-                {/* Grooves */}
-                <div className="absolute inset-1 rounded-full border border-[rgba(255,255,255,0.05)] pointer-events-none" />
-                <div className="absolute inset-2 rounded-full border border-[rgba(255,255,255,0.02)] pointer-events-none" />
+          {/* ── Music Player ── */}
+          <div className="flex items-center border-l border-[rgba(255,255,255,0.08)] pl-6 ml-2 relative">
+            
+            <div className="flex items-center gap-3">
+              {/* Spinning Record / Avatar */}
+              <button 
+                onClick={toggleMusic}
+                className="relative w-8 h-8 flex items-center justify-center rounded-full bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(192,57,43,0.4)] transition-colors shadow-inner overflow-hidden cursor-pointer outline-none"
+              >
+                <div className="absolute inset-1 rounded-full border border-[rgba(255,255,255,0.05)] pointer-events-none z-20" />
                 
                 <motion.div
                   animate={{ rotate: isPlaying ? 360 : 0 }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-                  className="w-full h-full flex items-center justify-center text-[#c0392b]"
+                  className="w-full h-full flex items-center justify-center"
                 >
-                  <Disc className="w-8 h-8 opacity-20 absolute" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#c0392b] shadow-[0_0_8px_rgba(192,57,43,0.8)] z-10" />
+                  <img src={PLAYLIST[currentSongIndex].poster} alt="Cover" className="w-full h-full object-cover opacity-80" />
+                  <div className="absolute w-2 h-2 rounded-full bg-[#111] border border-[#333] z-10" />
                 </motion.div>
 
                 {/* Tonearm needle */}
@@ -130,25 +185,85 @@ export default function Navbar() {
                 >
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1.5 bg-[#d4c8b8] rounded-sm" />
                 </motion.div>
-              </div>
+              </button>
 
-              {/* Scrolling Text */}
-              <div className="flex flex-col items-start overflow-hidden w-[70px] cursor-pointer">
-                <span className={`font-mono text-[7px] tracking-widest leading-tight transition-colors ${isPlaying ? 'text-[#c0392b]' : 'text-[#4a4540]'}`}>
-                  {isPlaying ? 'NOW PLAYING' : 'MUSIC OFF'}
-                </span>
+              {/* Scrolling Text & Drawer Toggle */}
+              <button 
+                className="flex flex-col items-start overflow-hidden w-[80px] cursor-pointer outline-none group"
+                onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+              >
+                <div className="flex items-center gap-1 w-full">
+                  <span className={`font-mono text-[7px] tracking-widest leading-tight transition-colors ${isPlaying ? 'text-[#c0392b]' : 'text-[#4a4540]'}`}>
+                    {isPlaying ? 'NOW PLAYING' : 'MUSIC OFF'}
+                  </span>
+                  <ChevronDown className={`w-2.5 h-2.5 text-[#8a8078] group-hover:text-[#c0392b] transition-transform duration-300 ${isDrawerOpen ? 'rotate-180' : ''}`} />
+                </div>
                 <div className="relative w-full h-[12px] overflow-hidden mt-0.5 mask-image-[linear-gradient(to_right,black_80%,transparent_100%)]">
                   <motion.div
                     animate={isPlaying ? { x: [0, -100] } : { x: 0 }}
                     transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
                     className="absolute whitespace-nowrap font-mono text-[9px] text-[#8a8078] tracking-wider"
                   >
-                    Your Track Here • Your Track Here • 
+                    {PLAYLIST[currentSongIndex].title} • {PLAYLIST[currentSongIndex].artist} • {PLAYLIST[currentSongIndex].title} • {PLAYLIST[currentSongIndex].artist} • 
                   </motion.div>
                 </div>
-              </div>
-            </button>
-            <audio ref={audioRef} loop src="/audio/theme.mp3" />
+              </button>
+            </div>
+
+            <audio 
+              ref={audioRef} 
+              autoPlay 
+              loop 
+              src={PLAYLIST[currentSongIndex].src} 
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+            />
+
+            {/* Dropdown Drawer */}
+            <AnimatePresence>
+              {isDrawerOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-[130%] right-0 w-[240px] bg-[rgba(10,10,10,0.95)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-[12px] p-3 shadow-[0_20px_40px_rgba(0,0,0,0.5)] flex flex-col gap-3"
+                >
+                  <div className="flex items-center justify-between px-2 text-[0.65rem] font-mono text-[#8a8078] tracking-widest uppercase">
+                    <span>Playlist</span>
+                  </div>
+                  
+                  <div className="flex flex-col gap-1">
+                    {PLAYLIST.map((song, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => selectSong(idx)}
+                        className={`flex items-center gap-3 p-2 rounded-[8px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.05)] ${currentSongIndex === idx ? 'bg-[rgba(192,57,43,0.1)]' : ''}`}
+                      >
+                        <img src={song.poster} alt={song.title} className="w-8 h-8 rounded-[4px] object-cover" />
+                        <div className="flex flex-col items-start overflow-hidden">
+                          <span className={`font-mono text-[0.7rem] truncate w-full text-left ${currentSongIndex === idx ? 'text-[#c0392b] font-bold' : 'text-[#e8e0d4]'}`}>{song.title}</span>
+                          <span className="font-mono text-[0.6rem] text-[#8a8078] truncate w-full text-left">{song.artist}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Volume Control */}
+                  <div className="flex items-center gap-3 px-2 py-2 mt-1 border-t border-[rgba(255,255,255,0.05)]">
+                    <Volume2 className="w-4 h-4 text-[#8a8078]" />
+                    <input 
+                      type="range" 
+                      min="0" 
+                      max="1" 
+                      step="0.05"
+                      value={volume}
+                      onChange={(e) => setVolume(parseFloat(e.target.value))}
+                      className="w-full h-1 bg-[rgba(255,255,255,0.1)] rounded-full appearance-none outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#c0392b] cursor-pointer"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
         </div>
